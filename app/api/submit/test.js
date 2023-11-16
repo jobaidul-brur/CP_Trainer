@@ -29,7 +29,7 @@ export async function submitCode(code, problemId, languageId) {
   await page.select('select[name="programTypeId"]', languageId);
   await page.waitForTimeout(5000);
 
-  await page.evaluate(() => {
+  await page.evaluate((code) => {
     document.querySelector("#sourceCodeTextarea").style.display = "block";
     document.querySelector("#sourceCodeTextarea").value = code;
   });
