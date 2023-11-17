@@ -11,18 +11,18 @@ datasource db {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  
-  access_token       String?  
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -58,10 +58,23 @@ model VerificationToken {
 }
 
 model Problem {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   contestId   Int
   index       String
   name        String
+  solvedCount Int       @default(0)
+  tags        Tag[]     // Establishing a one-to-many relationship with Tag
+  rating      Int       @default(0)
 
-  
+  problem_statement  String? @db.LongText
+  input_specification  String? @db.Text
+  output_specification String? @db.Text
 }
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String
+  problemId String?   // This field represents the foreign key
+  problem   Problem?  @relation(fields: [problemId], references: [id])
+}
+
