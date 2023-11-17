@@ -57,3 +57,10 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Problem {
+  id          String   @id @map("_id") 
+  contestId   Int
+  index       String
+  name        String
+}

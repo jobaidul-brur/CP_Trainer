@@ -32,7 +32,7 @@ export async function submitCode(code, problemId, languageId) {
   await page.evaluate((code) => {
     document.querySelector("#sourceCodeTextarea").style.display = "block";
     document.querySelector("#sourceCodeTextarea").value = code;
-  });
+  }, code);
 
   // Submit the form
   await page.click("#singlePageSubmitButton");

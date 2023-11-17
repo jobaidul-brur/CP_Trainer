@@ -10,7 +10,7 @@ const schema = z.object({
 import { submitCode } from "./test";
 
 export async function GET(request: NextRequest) {
-  await submitCode("sssssssldkfjlsdkfj", "1895F", "54");
+  await submitCode("compilation error", "1895F", "54");
   return NextResponse.json({ message: "Submitted!" });
 }
 
