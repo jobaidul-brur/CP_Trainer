@@ -1,6 +1,18 @@
 interface Problem {
   id: number;
+  contest_id: number;
+  index: string;
   name: string;
+  solvedCount: number;
+  // tags: string[];
+  rating: number;
+  time_limit: string;
+  memory_limit: string;
+  problem_statement: string;
+  input_specification: string;
+  output_specification: string;
+  sample_tests: string;
+  note: string;
 }
 interface Props {
   params: {
@@ -9,7 +21,7 @@ interface Props {
 }
 
 const RenderProblem = async ({ params: { id } }: Props) => {
-  const res = await fetch(`BASE_URL/api/problems/${id}`, {
+  const res = await fetch(`${process.env.BASE_URL}/api/problems/${id}`, {
     cache: "no-store",
     credentials: "include",
   });
@@ -31,11 +43,12 @@ const RenderProblem = async ({ params: { id } }: Props) => {
           </div>
         </div>
       </div>
+
       <div className={"block w-3/4 mr-32"}>
         <div className={"flex content-center"}>
           <h2 className={"text-3xl"}>{problem.name}</h2>
           <a
-            href={problem.problem_link}
+            href={"problem.problem_link"}
             className={"text-xl pl-5 text-blue-700"}
           >
             Link
@@ -71,19 +84,26 @@ const RenderProblem = async ({ params: { id } }: Props) => {
             dangerouslySetInnerHTML={{ __html: problem.output_specification }}
           />
         </div>
-        {/* <h1 className={"font-bold"}>Sample</h1>
-                  <div className="card w-96 shadow-xl"
-                      style={{backgroundColor: "rgba(210,210,255,.5)"}}>
-                      <div className="card-body">
-                          {test_cases.map((test_case) =>
-                              <div key={test_case.id}>
-                                  <h2>Input</h2>
-                                  <div dangerouslySetInnerHTML={{__html: test_case.input_text}}/>
-                                  <h2>Output</h2>
-                                  <div dangerouslySetInnerHTML={{__html: test_case.output_text}}/>
-                              </div>)}
-                      </div>
-                  </div> */}
+        <h1 className={"font-bold pl-3 m-2"}>Examples</h1>
+        <div
+          className="card shadow-xl"
+          style={{ backgroundColor: "rgba(210,210,255,.5)" }}
+        >
+          <div
+            className="card-body"
+            dangerouslySetInnerHTML={{ __html: problem.sample_tests }}
+          />
+        </div>
+        <h1 className={"font-bold pl-3 m-2"}>Note</h1>
+        <div
+          className="card shadow-xl"
+          style={{ backgroundColor: "rgba(210,210,255,.5)" }}
+        >
+          <div
+            className="card-body"
+            dangerouslySetInnerHTML={{ __html: problem.note }}
+          />
+        </div>
       </div>
     </div>
   );

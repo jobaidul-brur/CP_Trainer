@@ -58,23 +58,27 @@ model VerificationToken {
 }
 
 model Problem {
-  id          String    @id @default(cuid())
+  id          String @id @default(cuid())
   contestId   Int
   index       String
   name        String
-  solvedCount Int       @default(0)
-  tags        Tag[]     // Establishing a one-to-many relationship with Tag
-  rating      Int       @default(0)
+  solvedCount Int    @default(0)
+  tags        Tag[] // Establishing a one-to-many relationship with Tag
+  rating      Int    @default(0)
 
-  problem_statement  String? @db.LongText
-  input_specification  String? @db.Text
-  output_specification String? @db.Text
+  time_limit           String?
+  memory_limit         String?
+  problem_statement    String? @db.LongText
+  input_specification  String? @db.LongText
+  output_specification String? @db.LongText
+
+  sample_tests String? @db.LongText
+  note         String? @db.LongText
 }
 
 model Tag {
   id        String   @id @default(cuid())
   name      String
-  problemId String?   // This field represents the foreign key
-  problem   Problem?  @relation(fields: [problemId], references: [id])
+  problemId String? // This field represents the foreign key
+  problem   Problem? @relation(fields: [problemId], references: [id])
 }
-
