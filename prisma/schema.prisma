@@ -38,15 +38,19 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?      @unique
   emailVerified DateTime?
   image         String?
   cfHandle      String?
   fullName      String?
   accounts      Account[]
   sessions      Session[]
+  submissions   Submission[] // Establishing a one-to-many relationship with Submission
+  contests      Contest[]    @relation("ContestParticipants")
+  followedBy    User[]       @relation("UserFollows")
+  following     User[]       @relation("UserFollows")
 }
 
 model VerificationToken {
@@ -72,8 +76,9 @@ model Problem {
   input_specification  String? @db.LongText
   output_specification String? @db.LongText
 
-  sample_tests String? @db.LongText
-  note         String? @db.LongText
+  sample_tests String?      @db.LongText
+  note         String?      @db.LongText
+  submission   Submission[]
 }
 
 model Tag {
@@ -81,4 +86,32 @@ model Tag {
   name      String
   problemId String? // This field represents the foreign key
   problem   Problem? @relation(fields: [problemId], references: [id])
+}
+
+model Contest {
+  id           String       @id @default(cuid())
+  name         String?
+  startTime    DateTime?
+  endTime      DateTime?
+  // problems    Problem[]
+  participants User[]       @relation("ContestParticipants")
+  submissions  Submission[]
+  createdAt    DateTime     @default(now())
+}
+
+model Submission {
+  id          String   @id @default(cuid())
+  remoteRunId String?
+  problemId   String
+  userId      String
+  contestId   String
+  verdict     String?
+  language    String?
+  createdAt   DateTime @default(now())
+  sourceCode  String   @db.LongText
+  time        Int?
+  memory      Int?
+  problem     Problem  @relation(fields: [problemId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+  contest     Contest  @relation(fields: [contestId], references: [id])
 }
