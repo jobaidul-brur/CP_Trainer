@@ -23,5 +23,7 @@ export async function GET(request: NextRequest, { params: { id } }: Props) {
   if (!problem) {
     return NextResponse.json({ message: "Problem not found" }, { status: 404 });
   }
-  return NextResponse.json(problem, { status: 200 });
+
+  const tags = problem.tags.map((tag) => tag.name);
+  return NextResponse.json({ ...problem, tags }, { status: 200 });
 }
