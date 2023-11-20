@@ -38,19 +38,20 @@ model Session {
 }
 
 model User {
-  id            String       @id @default(cuid())
-  name          String?
-  email         String?      @unique
-  emailVerified DateTime?
-  image         String?
-  cfHandle      String?
-  fullName      String?
-  accounts      Account[]
-  sessions      Session[]
-  submissions   Submission[] // Establishing a one-to-many relationship with Submission
-  contests      Contest[]    @relation("ContestParticipants")
-  followedBy    User[]       @relation("UserFollows")
-  following     User[]       @relation("UserFollows")
+  id                   String       @id @default(cuid())
+  name                 String?
+  email                String?      @unique
+  emailVerified        DateTime?
+  image                String?
+  cfHandle             String?
+  fullName             String?
+  accounts             Account[]
+  sessions             Session[]
+  submissions          Submission[] // Establishing a one-to-many relationship with Submission
+  participatedContests Contest[]    @relation("ContestParticipants")
+  followedBy           User[]       @relation("UserFollows")
+  following            User[]       @relation("UserFollows")
+  createdContests      Contest[] // Establishing a one-to-many relationship with Contest
 }
 
 model VerificationToken {
@@ -78,8 +79,8 @@ model Problem {
 
   sample_tests String?      @db.LongText
   note         String?      @db.LongText
-  submission   Submission[]
-  contest      Contest[]    @relation("ContestProblems")
+  submissions  Submission[] // Problem has many submissions
+  contests     Contest[]    @relation("ContestProblems") // problem is used in many contests
 }
 
 model Tag {
@@ -92,12 +93,14 @@ model Tag {
 model Contest {
   id           String       @id @default(cuid())
   name         String?
+  authorId     String? // This field represents the foreign key
   startTime    DateTime?
   endTime      DateTime?
+  createdAt    DateTime     @default(now())
   problems     Problem[]    @relation("ContestProblems")
   participants User[]       @relation("ContestParticipants")
   submissions  Submission[]
-  createdAt    DateTime     @default(now())
+  user         User?        @relation(fields: [authorId], references: [id])
 }
 
 model Submission {

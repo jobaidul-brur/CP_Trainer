@@ -29,12 +29,16 @@ const RenderSubmission = async ({ params: { id } }: Props) => {
       <div>
         <span className="mr-3">ProblemID {submission.problemId}</span>
         <span className="mr-3">Verdict {submission.verdict}</span>
-        <span className="mr-3">Time {submission.time}</span>
-        <span className="mr-3">Memory {submission.memory}</span>
+        <span className="mr-3">Time {submission.time}ms</span>
+        <span className="mr-3">Memory {submission.memory}MB</span>
         <span>Lang {submission.language}</span>
       </div>
       <div className="mockup-code">
-        <pre>{submission.sourceCode}</pre>
+        {submission.sourceCode.split("\n").map((line, index) => (
+          <pre key={index} data-prefix={index + 1} className="mockup-code-line">
+            {line}
+          </pre>
+        ))}
       </div>
     </div>
   );
