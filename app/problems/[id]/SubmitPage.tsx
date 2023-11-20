@@ -29,7 +29,7 @@ const SubmitPage = ({ id }: Props) => {
       credentials: "include",
     });
     const data = await res.json();
-    console.log(data);
+    console.log("Submission log: ", data);
   };
   return (
     <>

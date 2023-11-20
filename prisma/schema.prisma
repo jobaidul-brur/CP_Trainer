@@ -63,7 +63,7 @@ model VerificationToken {
 
 model Problem {
   id          String @id @default(cuid())
-  contestId   Int
+  contestId   Int // contest id of cf
   index       String
   name        String
   solvedCount Int    @default(0)
@@ -79,6 +79,7 @@ model Problem {
   sample_tests String?      @db.LongText
   note         String?      @db.LongText
   submission   Submission[]
+  contest      Contest[]    @relation("ContestProblems")
 }
 
 model Tag {
@@ -93,7 +94,7 @@ model Contest {
   name         String?
   startTime    DateTime?
   endTime      DateTime?
-  // problems    Problem[]
+  problems     Problem[]    @relation("ContestProblems")
   participants User[]       @relation("ContestParticipants")
   submissions  Submission[]
   createdAt    DateTime     @default(now())
@@ -102,9 +103,9 @@ model Contest {
 model Submission {
   id          String   @id @default(cuid())
   remoteRunId String?
-  problemId   String
-  userId      String
-  contestId   String
+  problemId   String // This field represents the foreign key
+  userId      String // This field represents the foreign key
+  contestId   String // This field represents the foreign key
   verdict     String?
   language    String?
   createdAt   DateTime @default(now())

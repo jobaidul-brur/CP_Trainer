@@ -1,4 +1,6 @@
 export async function submitCode(code, problemId, languageId) {
+  return "233549937";
+
   const puppeteer = require("puppeteer");
 
   // Launch the browser in incognito mode
@@ -40,9 +42,21 @@ export async function submitCode(code, problemId, languageId) {
   // Add a delay to see the result (adjust as needed)
 
   await page.waitForTimeout(5000);
-
   // Add a delay to see the result (adjust as needed)
 
+  // scrap submission id
+  const data = await page.evaluate(() => {
+    const trElement = document.querySelector("tr.highlighted-row"); // Select the specific <tr> element
+    const submissionId = trElement.getAttribute("data-submission-id"); // Extract the value of 'data-submission-id'
+    return submissionId;
+  });
+  await page.waitForTimeout(5000);
+  console.log("Submission ID:", data);
   // Close the browser
   await browser.close();
+  if (data) {
+    return data;
+  } else {
+    return "error";
+  }
 }
