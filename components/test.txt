@@ -1,0 +1,9 @@
+ <span
+              key={nav.id}
+              className={`mx-1 text-lg mr-2 pt-2 pb-2 pl-2 pr-2 hover:bg-gray-100 hover:font-bold hover:text-lg text-blue-600 hover:rounded-lg  hover:text-gray-800 ${
+                nav.title === "Home"
+                  ? "font-bold text-lg text-blue-600"
+                  : "font-normal "
+              }`}
+              onClick={() => setActive(nav.title)}
+            >

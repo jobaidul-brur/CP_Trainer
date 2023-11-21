@@ -34,10 +34,10 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <div className="bg-black text-white">
+    <div className=" shadow-md mb-10 ">
       {/* Desktop Navigation */}
       <nav
-        className="sm:flex hidden navbar px-5"
+        className="sm:flex hidden navbar px-5 bg-white text-black"
         style={{
           minHeight: "40px",
         }}
@@ -46,12 +46,13 @@ const Navbar = () => {
           {navLinks.map((nav) => (
             <span
               key={nav.id}
-              className="mx-1"
               onClick={() => setActive(nav.title)}
+              // className={`mx-1 pt-2 pb-2 pr-3 pl-3 hover:bg-gray-100  hover:rounded-lg hover:font-light${
+              //   nav.title === "Home" ? "text-blue-900 font-bold " : ""
+              // }`}
+              className="btn btn-ghost btn-md rounded-btn hover:bg-gray-100 hover:text-gray-600"
             >
-              <a href={`${nav.id}`} className="text-white">
-                {nav.title}
-              </a>
+              <Link href={`${nav.id}`}>{nav.title}</Link>
             </span>
           ))}
         </div>
@@ -61,7 +62,7 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Navigation */}
-      <nav className="sm:hidden flex flex-1 justify-end items-center">
+      {/* <nav className="sm:hidden flex flex-1 justify-end items-center">
         <button
           className="w-[28px] h-[28px] object-contain"
           onClick={() => setToggle(!toggle)}
@@ -69,7 +70,6 @@ const Navbar = () => {
           {toggle ? <IoMdClose /> : <IoMdMenu />}
         </button>
 
-        {/* Sidebar */}
         <div
           className={`${
             !toggle ? "hidden" : "flex"
@@ -89,7 +89,7 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
-      </nav>
+      </nav> */}
     </div>
   );
 };
