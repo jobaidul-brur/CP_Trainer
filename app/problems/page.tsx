@@ -17,9 +17,9 @@ const Problems = async () => {
 
   return (
     <div className="flex flex-col justify-left items-center  bg-white  mx-10">
-      <table className=" border-none w-5/6 mx-auto border-collapse border mt-10">
+      <table className=" border-none w-5/6 mx-auto border-collapse border my-10">
         <thead className="bg-gray-100">
-          <tr className="text-gray-700">
+          <tr className="text-gray-700 text-left">
             <th className="px-4 py-2"></th>
             <th className="px-4 py-2">Judge</th>
             <th className="px-4 py-2">Problem Title</th>
@@ -29,7 +29,7 @@ const Problems = async () => {
           {/* body */}
           {problems.map((problem, index) => (
             <tr
-              className={`text-gray-700 pb-3 ${
+              className={`text-gray-700 pb-3 hover:bg-blue-100 ${
                 index % 2 === 1 ? "bg-gray-100" : "bg-white"
               }`}
               key={problem.id}

@@ -18,10 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="light">
-      <body className={"bg-gray-200 h-screen"}>
+      <body className={inter.className}>
         <AuthProvider>
-          <Navbar />
-          <main className="">{children}</main>
+          <div className={"bg-gray-200 min-h-screen"}>
+            <Navbar />
+            <main className="">{children}</main>
+          </div>
         </AuthProvider>
       </body>
     </html>

@@ -31,7 +31,10 @@ const ScrapProblem = async (link: string) => {
   if (sample_tests) {
     sample_tests = sample_tests.replaceAll('class="input"', 'class="1nput"\'');
   }
-  const note = $(".problem-statement .note").html();
+  let note = $(".problem-statement .note").html();
+  if (note) {
+    note = note.replace('<div class="section-title">Note</div>', "");
+  }
   return {
     time_limit,
     memory_limit,

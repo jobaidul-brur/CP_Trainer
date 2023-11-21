@@ -32,17 +32,12 @@ const SubmitPage = ({ id }: Props) => {
     console.log("Submission log: ", data);
   };
   return (
-    <>
-      Select Language
+    <div className="pt-2 pb-2 pl-4 pr-4">
+      <div className="select-language pb-1 text-lg font-bold">
+        <h2>Select Language</h2>
+      </div>
       <SelectLanguage onSelectLanguage={onSelectLanguage} />
-      <div> {selectedLanguage} </div>
-      <div className="p-4">
-        <label
-          className="block mb-2 font-bold text-gray-700"
-          htmlFor="codeInput"
-        >
-          Enter Your Code:
-        </label>
+      <div className="pt-4">
         <textarea
           id="codeInput"
           name="codeInput"
@@ -51,10 +46,10 @@ const SubmitPage = ({ id }: Props) => {
           rows={10}
         ></textarea>
       </div>
-      <button className="btn btn-outline" onClick={handleClick}>
+      <button className="btn btn-primary" onClick={handleClick}>
         Submit
       </button>
-    </>
+    </div>
   );
 };
 

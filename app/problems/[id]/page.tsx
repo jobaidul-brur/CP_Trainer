@@ -1,5 +1,5 @@
-import Description from "./Description";
-import SubmitPage from "./SubmitPage";
+import ShowProblem from "@/components/showProblem/ShowProblem";
+import SubmitPage from "@/components/submitPage/SubmitPage";
 
 interface Problem {
   id: string;
@@ -31,8 +31,8 @@ const RenderProblem = async ({ params: { id } }: Props) => {
   const problem: Problem = await res.json();
 
   return (
-    <div className={"split"}>
-      <Description problem={problem} />
+    <div className={"bg-white p-10 mx-10"}>
+      <ShowProblem problem={problem} />
       <SubmitPage id={id} />
     </div>
   );

@@ -49,9 +49,8 @@ const SelectLanguage = ({ onSelectLanguage }: Props) => {
   ];
   return (
     <div>
-      Submitsss
       <select
-        className="select select-primary w-full max-w-xs"
+        className="select select-primary border-2 border-gray-300 rounded-md"
         onChange={handleChange}
       >
         {laguages.map((language) => (

@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
     }
     console.log(`Problem ${problemId} updated`);
     cnt++;
-    if (cnt == 10) break;
+    if (cnt == 50) break;
   }
   console.log("All problems updated");
 
