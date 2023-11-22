@@ -71,12 +71,14 @@ const ShowProblem = ({ problem }: Props) => {
         <h1 className={"mt-3 pb-4 font-bold"}>Note</h1>
         <hr />
         <div className="p-4 bg-gray-50">
-          <div
-            className=""
-            dangerouslySetInnerHTML={{
-              __html: problem.note.replace("Note", " "),
-            }}
-          />
+          {problem.note && (
+            <div
+              className=""
+              dangerouslySetInnerHTML={{
+                __html: problem.note.replace("Note", " "),
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

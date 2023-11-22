@@ -1,6 +1,4 @@
 export async function submitCode(code, problemId, languageId) {
-  return "233549937";
-
   const puppeteer = require("puppeteer");
 
   // Launch the browser in incognito mode

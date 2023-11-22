@@ -5,12 +5,18 @@ import SelectLanguage from "./SelectLanguage";
 interface Props {
   id: string;
 }
+interface User {
+  userName: string;
+  id: string;
+}
 
 const SubmitPage = ({ id }: Props) => {
   const [selectedLanguage, setSelectedLanguage] = useState("73");
   const onSelectLanguage = (language: string) => {
     setSelectedLanguage(language);
   };
+  const res = localStorage.getItem("user");
+  const user: User = JSON.parse(res!);
   const handleClick = async () => {
     const codeInput = document.getElementById(
       "codeInput"
@@ -22,6 +28,8 @@ const SubmitPage = ({ id }: Props) => {
         code: codeInput.value,
         problemId: id,
         languageId: selectedLanguage,
+        userId: user.id,
+        contestID: "practice",
       }),
       headers: {
         "Content-Type": "application/json",
