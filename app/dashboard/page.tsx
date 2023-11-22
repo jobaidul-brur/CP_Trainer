@@ -1,5 +1,6 @@
 import React from "react";
 import FetchProblems from "./fetchProblems";
+import CreateContest from "./CreateContest";
 
 const AdminDashboard: React.FC = () => {
   return (
@@ -9,6 +10,7 @@ const AdminDashboard: React.FC = () => {
       {/* Add any necessary logic to fetch data from an API or database */}
       {/* Render the necessary components and data in the dashboard */}
       <FetchProblems />
+      <CreateContest />
     </div>
   );
 };

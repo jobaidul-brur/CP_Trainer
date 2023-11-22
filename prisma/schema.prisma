@@ -97,7 +97,7 @@ model Contest {
   name         String?
   authorId     String? // This field represents the foreign key
   startTime    DateTime?
-  endTime      DateTime?
+  duration     Int?
   createdAt    DateTime     @default(now())
   problems     Problem[]    @relation("ContestProblems")
   participants User[]       @relation("ContestParticipants")
