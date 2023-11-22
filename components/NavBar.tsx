@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import Skeleton from "@/components/Skeleton";
 
@@ -96,11 +96,24 @@ const Navbar = () => {
 
 export default Navbar;
 
-const AuthStatus = () => {
-  const { status, data: session } = useSession();
+interface User {
+  userName: string;
+  id: string;
+}
 
-  if (status === "loading") return <Skeleton width={"3rem"} height={"32px"} />;
-  if (status === "unauthenticated")
+const AuthStatus = () => {
+  const [user, setUser] = useState<User | null>(null);
+
+  // i wanted to get user detials from local stroage
+
+  useEffect(() => {
+    const data = localStorage.getItem("user");
+    setUser(JSON.parse(data!));
+  }, []);
+
+  console.log("user from localstorage", user);
+
+  if (!user?.userName)
     return (
       <Link href={"/api/auth/signin"} className="nav-link">
         Login
@@ -108,16 +121,16 @@ const AuthStatus = () => {
     );
   return (
     <details className="dropdown dropdown-left bg-none text-black">
-      <summary>
+      <summary className="cursor-pointer outline-none">
         <div className="avatar">
-          <div className="h-8 text-white">
-            <p>{session!.user!.email![0]}</p>
+          <div className="h-8 text-red-400">
+            <p>{user.userName}</p>
           </div>
         </div>
       </summary>
       <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
         <li>
-          <p>{session!.user!.email}</p>
+          <p>{user.userName}</p>
         </li>
         <li>
           <Link href={"/api/auth/signout"} className="nav-link">
