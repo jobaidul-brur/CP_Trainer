@@ -53,7 +53,7 @@ export default function ContestPage({ params: { id } }: Props) {
       setContest(data);
     };
     fetchContest();
-  }, []);
+  });
   console.log(contest);
 
   // i wanted to make

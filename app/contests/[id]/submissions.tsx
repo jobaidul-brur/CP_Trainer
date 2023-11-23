@@ -150,7 +150,9 @@ const Submissions = () => {
                     Source
                     <div className="mockup-code bg-gray-100 text-black">
                       {submission?.sourceCode.split("\n").map((line, index) => (
-                        <pre data-prefix={index + 1}>{line}</pre>
+                        <pre key={index} data-prefix={index + 1}>
+                          {line}
+                        </pre>
                       ))}
                     </div>
                   </div>

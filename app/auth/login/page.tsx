@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const login = () => {
+const Login = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
 
@@ -96,4 +96,4 @@ const login = () => {
     </div>
   );
 };
-export default login;
+export default Login;

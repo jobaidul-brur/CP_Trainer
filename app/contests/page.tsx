@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-interface Contests {
+interface Contest {
   id: string;
   name: string;
   authorId: string;
@@ -17,7 +17,7 @@ const Contests = async () => {
     cache: "no-store",
     credentials: "include",
   });
-  const contests: Contests[] = await res.json();
+  const contests: Contest[] = await res.json();
   return (
     <div className="flex flex-col justify-left items-center  bg-white  mx-10">
       <table className=" border-none w-5/6 mx-auto border-collapse border my-10">

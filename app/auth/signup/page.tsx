@@ -3,7 +3,7 @@ import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { set } from "zod";
 
-const signup = () => {
+const Signup = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [cfhandle, setcfhandle] = useState("");
@@ -102,4 +102,4 @@ const signup = () => {
     </div>
   );
 };
-export default signup;
+export default Signup;

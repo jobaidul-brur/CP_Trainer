@@ -2,7 +2,7 @@ export async function submitCode(code, problemId, languageId) {
   const puppeteer = require("puppeteer");
 
   // Launch the browser in incognito mode
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: true });
   const context = await browser.createIncognitoBrowserContext();
   const page = await context.newPage();
 
