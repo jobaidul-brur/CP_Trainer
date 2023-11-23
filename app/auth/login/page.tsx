@@ -42,7 +42,7 @@ const login = () => {
       let userData = localStorage.getItem("user");
       userData = JSON.parse(userData!);
       console.log("userData", userData);
-      router.push("/");
+      window.location.href = "/";
     } else {
       seterror(true);
       console.log("Login failed 401");

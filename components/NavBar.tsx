@@ -111,11 +111,20 @@ const AuthStatus = () => {
     setUser(JSON.parse(data!));
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+
+    // hot reloading
+
+    window.location.href = "/auth/login";
+  };
+
   console.log("user from localstorage", user);
 
   if (!user?.userName)
     return (
-      <Link href={"/api/auth/signin"} className="nav-link">
+      <Link href={"/auth/login"} className="nav-link">
         Login
       </Link>
     );
@@ -130,12 +139,12 @@ const AuthStatus = () => {
       </summary>
       <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
         <li>
-          <p>{user.userName}</p>
+          <Link href={"/profile"}>{user.userName}</Link>
         </li>
         <li>
-          <Link href={"/api/auth/signout"} className="nav-link">
+          <span onClick={handleLogout} className="nav-link">
             Logout
-          </Link>
+          </span>
         </li>
       </ul>
     </details>

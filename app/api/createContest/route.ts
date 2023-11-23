@@ -7,17 +7,23 @@ export async function POST(request: NextRequest) {
   const { name, authorID, startTime, duration, problemIds, participantIds } =
     body;
   console.log(name, authorID, startTime, duration, problemIds, participantIds);
+  const author = await prisma.user.findUnique({
+    where: {
+      id: authorID,
+    },
+  });
   const contest = await prisma.contest.create({
     data: {
       name: name,
       authorId: authorID,
+      authorName: author?.name!,
       startTime: startTime,
       duration: duration,
       problems: {
-        connect: problemIds.map((id) => ({ id })),
+        connect: problemIds.map((id: string) => ({ id })),
       },
       participants: {
-        connect: participantIds.map((id) => ({ id })),
+        connect: participantIds.map((id: string) => ({ id })),
       },
     },
   });

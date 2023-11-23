@@ -42,7 +42,7 @@ model User {
   userName             String?      @unique
   password             String?
   name                 String?
-  email                String?      
+  email                String?
   emailVerified        DateTime?
   image                String?
   cfHandle             String?
@@ -96,6 +96,7 @@ model Contest {
   id           String       @id @default(cuid())
   name         String?
   authorId     String? // This field represents the foreign key
+  authorName   String       @default("defaultAuthor")
   startTime    DateTime?
   duration     Int?
   createdAt    DateTime     @default(now())
