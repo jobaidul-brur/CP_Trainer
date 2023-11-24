@@ -4,13 +4,14 @@ import SelectLanguage from "./SelectLanguage";
 
 interface Props {
   id: string;
+  contestID: string;
 }
 interface User {
   userName: string;
   id: string;
 }
 
-const SubmitPage = ({ id }: Props) => {
+const SubmitPage = ({ id, contestID }: Props) => {
   const [selectedLanguage, setSelectedLanguage] = useState("73");
   const onSelectLanguage = (language: string) => {
     setSelectedLanguage(language);
@@ -33,7 +34,7 @@ const SubmitPage = ({ id }: Props) => {
         problemId: id,
         languageId: selectedLanguage,
         userId: user?.id,
-        contestID: "practice",
+        contestID: contestID,
       }),
       headers: {
         "Content-Type": "application/json",

@@ -33,7 +33,7 @@ const RenderProblem = async ({ params: { id } }: Props) => {
   return (
     <div className={"bg-white p-10 mx-10"}>
       <ShowProblem problem={problem} />
-      <SubmitPage id={id} />
+      <SubmitPage id={id} contestID="practice" />
     </div>
   );
 };

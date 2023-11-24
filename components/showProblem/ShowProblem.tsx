@@ -18,14 +18,17 @@ interface Problem {
 }
 interface Props {
   problem: Problem;
+  indexInContest?: string;
 }
 
-const ShowProblem = ({ problem }: Props) => {
+const ShowProblem = ({ problem, indexInContest }: Props) => {
   return (
     <div>
       <div className={"pt-2 pb-2 pl-4 pr-4"}>
         <div className={"problem-title pb-4 text-lg font-bold"}>
-          <h2 className={""}>{problem.name}</h2>
+          <h2 className={""}>
+            {indexInContest}. {problem.name}
+          </h2>
         </div>
         <hr />
         <div className="bg-gray-50 flex justify-between p-4">

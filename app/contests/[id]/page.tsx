@@ -5,6 +5,7 @@ import ContestNavbar from "./contestNavbar";
 import Problems from "./problems";
 import Submissions from "./submissions";
 import StandingPage from "./standing";
+import SingleProblem from "./problem";
 
 interface Props {
   params: {
@@ -38,6 +39,12 @@ export default function ContestPage({ params: { id } }: Props) {
     console.log(page);
     setCurrPage(page);
   };
+  const [problemNo, setProblemNo] = React.useState(-1);
+  const handleClickOfProblem = (problemNo: number) => {
+    console.log(`problem no ${problemNo} clicked`);
+    setProblemNo(problemNo);
+    setCurrPage(4);
+  };
 
   useEffect(() => {
     const fetchContest = async () => {
@@ -53,12 +60,12 @@ export default function ContestPage({ params: { id } }: Props) {
       setContest(data);
     };
     fetchContest();
-  });
+  }, []);
   console.log(contest);
 
   // i wanted to make
   return (
-    <div className="bg-white m-2 rounded relative p-5">
+    <div className="bg-white p-10 mx-10">
       {/* <div className=" flex flex-row justify-center items-center ">
         <span className="  font-bold text-lg  "> {contest?.name} </span>
       </div> */}
@@ -69,9 +76,21 @@ export default function ContestPage({ params: { id } }: Props) {
       />
       <ContestNavbar handleClickOfNavigation={handleClickOfNavigation} />
       <hr className="my-2 w-full " />
-      {currPage === 1 && <Problems contest={contest!} />}
+      {currPage === 1 && (
+        <Problems
+          handleClickOfProblem={handleClickOfProblem}
+          contest={contest!}
+        />
+      )}
       {currPage == 2 && <Submissions />}
       {currPage == 3 && <StandingPage />}
+      {currPage == 4 && (
+        <SingleProblem
+          problemID={contest!.problems[problemNo].id}
+          constID={contest!.id}
+          indexInContest={String(problemNo + 1)}
+        />
+      )}
     </div>
   );
 }

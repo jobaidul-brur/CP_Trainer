@@ -1,3 +1,4 @@
+import { handleClientScriptLoad } from "next/script";
 import React from "react";
 
 interface ContestData {
@@ -19,19 +20,20 @@ interface ContestData {
 
 interface Props {
   contest: ContestData;
+  handleClickOfProblem: (problemNo: number) => void;
 }
 
-export default function Problems({ contest }: Props) {
+export default function Problems({ contest, handleClickOfProblem }: Props) {
   return (
     <div>
       {" "}
       <table className="w-full border-collapse">
         <thead>
           <tr>
-            <th className="">id</th>
-            <th className="">name</th>
-            <th className="">limte limite</th>
-            <th className="">memory limite</th>
+            <th className="text-left">No</th>
+            <th className="text-left">Title</th>
+            <th className="text-left">Time Limit</th>
+            <th className="text-left">Memory Limit</th>
           </tr>
         </thead>
         <tbody>
@@ -39,16 +41,21 @@ export default function Problems({ contest }: Props) {
 
           {contest?.problems.map((problem, index) => (
             <tr
-              className={`text-gray-700 p-3 mb-2 hover:bg-blue-100 ${
+              className={`text-gray-700 p-3 mb-2 hover:bg-blue-100  ${
                 index % 2 === 1 ? "bg-gray-100" : "bg-white"
               }`}
               key={problem.id}
             >
-              <td className="text-center">{index + 1}</td>
-              <td className="text-center">{problem.name}</td>
+              <td className="text-left">{index + 1}</td>
+              <td
+                onClick={() => handleClickOfProblem(index)}
+                className="text-left hover:underline hover:cursor-pointer"
+              >
+                {problem.name}
+              </td>
 
-              <td className="text-center text-sm">{problem.time_limit}</td>
-              <td className="text-center text-sm">{problem.memory_limit}</td>
+              <td className="text-left text-sm">{problem.time_limit}</td>
+              <td className="text-left text-sm">{problem.memory_limit}</td>
             </tr>
           ))}
 

@@ -22,9 +22,15 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const { code, problemId, languageId, userId, contestID } = schema.parse(body);
   console.log(code, problemId, languageId);
-  const remoteRunID: string = await submitCode(code, problemId, languageId);
+  let remoteRunID = "error";
+  try {
+    remoteRunID = await submitCode(code, problemId, languageId);
+  } catch (error) {
+    console.log("Error", error);
+  }
+
   console.log("REmote run id", remoteRunID);
-  if (remoteRunID === "error") {
+  if (remoteRunID === "") {
     return NextResponse.json({ message: "Error!" }, { status: 500 });
   }
 
