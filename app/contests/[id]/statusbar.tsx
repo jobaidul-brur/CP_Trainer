@@ -56,7 +56,7 @@ export default function Statusbar({
           {new Date(contestStartTime).getTime() + duration * 60 * 1000 <
           new Date().getTime() ? (
             <span id="info-running" className="text-green-500">
-              {new Date(elapsedSeconds * 1000).toISOString().substr(11, 8)}
+              {new Date(elapsedSeconds * 1000).toISOString().slice(11, 19)}
             </span>
           ) : (
             <span id="info-running" className="text-green-500">

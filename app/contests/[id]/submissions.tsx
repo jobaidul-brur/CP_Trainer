@@ -24,7 +24,11 @@ interface User {
   id: string;
 }
 
-const Submissions = () => {
+interface Props {
+  contestId: string;
+}
+
+const Submissions = ({ contestId }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [submission, setSubmission] = useState<Submission | null>(null);
@@ -49,6 +53,11 @@ const Submissions = () => {
   useEffect(() => {
     const fetchSubmissions = async () => {
       const res = await fetch(`${process.env.BASE_URL}/api/submissions`, {
+        method: "POST",
+        body: JSON.stringify({
+          contestId: contestId,
+          userId: user?.id,
+        }),
         cache: "no-store",
         credentials: "include",
       });
@@ -57,11 +66,19 @@ const Submissions = () => {
     };
 
     fetchSubmissions();
-  }, []);
+  }, [user]);
+
+  if (submissions.length === 0) {
+    console.log(user?.id);
+    return (
+      <div className="flex flex-col justify-left items-center  bg-white  ">
+        <div className="text-2xl font-bold">No submissions yet</div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col justify-left items-center  bg-white  ">
-      <div>{user?.id}</div>
       <table className="border-none w-full mx-auto border-collapse border ">
         <thead className="bg-gray-100">
           <tr className="text-gray-700 text-left">
