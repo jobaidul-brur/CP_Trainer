@@ -6,8 +6,8 @@ interface ContestData {
   name: string;
   authorId: string;
   authorName: string;
-  startTime: string;
-  Duration: number;
+  // startTime: DateTime;
+  duration: number;
   createdAt: string;
   problems: {
     id: string;

@@ -17,18 +17,14 @@ const CreateContest = () => {
       "955A",
     ];
 
-    const participantIds = [
-      "clp2in1yf0000nqxcvcdx0tx7",
-      "clp5w1mwr0000nq40xizqacv5",
-      "clp9tbt4n0008nqscsy34exbg",
-    ];
+    const participantIds = ["user1", "user2", "user3"];
     const BASE_URL = process.env.BASE_URL;
     const res = await fetch(`${BASE_URL}/api/createContest`, {
       method: "POST",
       body: JSON.stringify({
         name: "So You Have Chosen Death",
-        authorID: "clp2in1yf0000nqxcvcdx0tx7",
-        startTime: "2021-08-15T14:00:00.000Z",
+        authorID: "admin",
+        startTime: "2022-11-24T14:00:00.000Z",
         duration: 120,
         problemIds: problemIds,
         participantIds: participantIds,

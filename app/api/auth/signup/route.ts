@@ -7,7 +7,7 @@ import prisma from "@/prisma/client";
 export async function POST(request: NextRequest) {
   const body = await request.json();
   console.log("body: ", body);
-  const { username, password, cfHandle } = body;
+  const { username, password, cfhandle } = body;
   const user = await prisma.user.findFirst({
     where: { userName: username },
   });
@@ -22,9 +22,10 @@ export async function POST(request: NextRequest) {
     data: {
       userName: username,
       password: password,
-      cfHandle: cfHandle,
+      cfHandle: cfhandle,
     },
   });
+  console.log("newUser: ", newUser);
 
   return NextResponse.json({ message: "User created!" }, { status: 200 });
 }

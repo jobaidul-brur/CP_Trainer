@@ -18,8 +18,8 @@ interface ContestData {
   name: string;
   authorId: string;
   authorName: string;
-  startTime: string;
-  Duration: number;
+  startTime: Date;
+  duration: number;
   createdAt: string;
   problems: {
     id: string;
@@ -31,7 +31,7 @@ interface ContestData {
 }
 
 export default function ContestPage({ params: { id } }: Props) {
-  const [contest, setContest] = React.useState<ContestData>();
+  const [contest, setContest] = React.useState<ContestData | null>(null);
 
   const [currPage, setCurrPage] = React.useState(1);
 
@@ -57,6 +57,7 @@ export default function ContestPage({ params: { id } }: Props) {
       });
       const data = await res.json();
       console.log(data);
+
       setContest(data);
     };
     fetchContest();
@@ -66,30 +67,31 @@ export default function ContestPage({ params: { id } }: Props) {
   // i wanted to make
   return (
     <div className="bg-white p-10 mx-10">
-      {/* <div className=" flex flex-row justify-center items-center ">
-        <span className="  font-bold text-lg  "> {contest?.name} </span>
-      </div> */}
-      <Statusbar
-        contestName={contest?.name!}
-        contestStartTime={contest?.startTime!}
-        contestEndTime={"xyz"}
-      />
-      <ContestNavbar handleClickOfNavigation={handleClickOfNavigation} />
-      <hr className="my-2 w-full " />
-      {currPage === 1 && (
-        <Problems
-          handleClickOfProblem={handleClickOfProblem}
-          contest={contest!}
-        />
-      )}
-      {currPage == 2 && <Submissions />}
-      {currPage == 3 && <StandingPage />}
-      {currPage == 4 && (
-        <SingleProblem
-          problemID={contest!.problems[problemNo].id}
-          constID={contest!.id}
-          indexInContest={String(problemNo + 1)}
-        />
+      {contest && (
+        <div>
+          <Statusbar
+            contestName={contest.name}
+            contestStartTime={contest.startTime}
+            duration={contest.duration}
+          />
+          <ContestNavbar handleClickOfNavigation={handleClickOfNavigation} />
+          <hr className="my-2 w-full " />
+          {currPage === 1 && (
+            <Problems
+              handleClickOfProblem={handleClickOfProblem}
+              contest={contest}
+            />
+          )}
+          {currPage == 2 && <Submissions />}
+          {currPage == 3 && <StandingPage />}
+          {currPage == 4 && (
+            <SingleProblem
+              problemID={contest.problems[problemNo].id}
+              constID={contest.id}
+              indexInContest={String(problemNo + 1)}
+            />
+          )}{" "}
+        </div>
       )}
     </div>
   );
