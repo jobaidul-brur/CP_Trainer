@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SelectLanguage from "./SelectLanguage";
 
 interface Props {
@@ -15,8 +15,12 @@ const SubmitPage = ({ id }: Props) => {
   const onSelectLanguage = (language: string) => {
     setSelectedLanguage(language);
   };
-  const res = localStorage.getItem("user");
-  const user: User = JSON.parse(res!);
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    const data = localStorage.getItem("user");
+    setUser(JSON.parse(data!));
+  }, []);
+
   const handleClick = async () => {
     const codeInput = document.getElementById(
       "codeInput"
@@ -28,7 +32,7 @@ const SubmitPage = ({ id }: Props) => {
         code: codeInput.value,
         problemId: id,
         languageId: selectedLanguage,
-        userId: user.id,
+        userId: user?.id,
         contestID: "practice",
       }),
       headers: {

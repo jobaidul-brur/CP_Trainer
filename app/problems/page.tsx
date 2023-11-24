@@ -17,6 +17,9 @@ const Problems = async () => {
   return (
     <div className="flex flex-col justify-left items-center  bg-white  mx-10">
       <table className=" border-none w-5/6 mx-auto border-collapse border my-10">
+        <caption>
+          <h1 className="text-2xl mb-4 font-bold">Problem List</h1>
+        </caption>
         <thead className="bg-gray-100">
           <tr className="text-gray-700 text-left">
             <th className="px-4 py-2"></th>
