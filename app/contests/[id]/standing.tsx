@@ -52,8 +52,17 @@ const StandingPage = ({ contestId }: Props) => {
       console.log(data);
       setRows(data);
     };
+
+    // Call fetchSubmissions immediately
     fetchSubmissions();
+
+    // Then call fetchSubmissions every minute
+    const intervalId = setInterval(fetchSubmissions, 60 * 1000);
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(intervalId);
   }, []);
+
   if (!rows) {
     return <div>loading...</div>;
   }

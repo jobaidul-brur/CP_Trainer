@@ -1,28 +1,6 @@
 import Link from "next/link";
 import React from "react";
 
-//
-//  {
-//       rank: 3,
-//       username: "sayeef_1903006",
-//       displayName: "Sayeef",
-//       solved: 2500,
-//       penalty: {
-//         minutes: 191,
-//         hms: "3:11:05",
-//       },
-//       problems: [
-//         { time: "0:04:19", points: 100, firstSolver: true },
-//         { time: "0:02:45", points: 200 },
-//         { time: "0:18:34", points: 400 },
-//         { time: "0:15:08", points: 500 },
-//         { time: "0:59:10", points: 600 },
-//         { time: "0:56:09", points: 700 },
-//       ],
-//     },
-
-// make an interface for this
-
 interface Cell {
   isSolved: boolean;
   problemId: string;
@@ -43,7 +21,7 @@ interface Props {
 
 const StandingRow = ({ row, rank }: Props) => {
   return (
-    <tr className="border-b hover:bg-gray-100">
+    <tr className="border-b hover:bg-gray-100 bg-white">
       <td>{rank}</td>
       <td className="">
         <Link
@@ -60,7 +38,7 @@ const StandingRow = ({ row, rank }: Props) => {
       <td className="py-2 px-4 ">{row.totalPenalty} min</td>
 
       <td className="py-2 px-4">
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-nowrap items-center gap-2">
           {row.cells.map((cell, index) => (
             <div key={index} className="">
               {cell.isSolved && (

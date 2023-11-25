@@ -15,16 +15,25 @@ const CreateContest = () => {
       "954H",
       "954I",
       "955A",
+      "100A",
+      "100B",
+      "100C",
+      "100D",
+      "100E",
+      "100F",
+      "100G",
+      "100H",
+      "100I",
     ];
 
     const participantIds = ["user1", "user2", "user3"];
     const BASE_URL = process.env.BASE_URL;
-    const res = await fetch(`${BASE_URL}/api/createContest`, {
+    const res = await fetch(`${BASE_URL}/api/createCustomContest`, {
       method: "POST",
       body: JSON.stringify({
         name: "So You Have Chosen Death",
-        authorID: "admin",
-        startTime: "2022-11-24T14:00:00.000Z",
+        authorId: "admin",
+        startTime: "2024-11-24T14:00:00.000Z",
         duration: 120,
         problemIds: problemIds,
         participantIds: participantIds,
