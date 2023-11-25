@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 //
@@ -22,59 +23,64 @@ import React from "react";
 
 // make an interface for this
 
+interface Cell {
+  isSolved: boolean;
+  problemId: string;
+  solveAt: Date;
+  waCnt: number;
+}
+interface Row {
+  userId: string;
+  userName: string;
+  solveCnt: number;
+  totalPenalty: number;
+  cells: Cell[];
+}
 interface Props {
-  participant: {
-    rank: number;
-    username: string;
-    displayName: string;
-    solved: number;
-    penalty: {
-      minutes: number;
-      hms: string;
-    };
-    problems: {
-      time: string;
-      points: number;
-      firstSolver?: boolean;
-    }[];
-  };
+  row: Row;
+  rank: number;
 }
 
-const StandingRow = ({ participant }: Props) => {
+const StandingRow = ({ row, rank }: Props) => {
   return (
     <tr className="border-b hover:bg-gray-100">
-      <td>{participant.rank}</td>
+      <td>{rank}</td>
       <td className="">
-        <a
-          href={`/user/${participant.username}`}
-          title={`${participant.displayName} (${participant.username})`}
+        <Link
+          href={`/user/${row.userId}`}
+          title={`${row.userName}`}
           target="_blank"
           className="text-blue-500 hover:underline"
         >
-          {participant.displayName}{" "}
-          {/* <span className="text-gray-500">({participant.username})</span> */}
-        </a>
+          {row.userName}{" "}
+        </Link>
       </td>
 
-      <td className="py-2 px-4 ">{participant.solved}</td>
-      <td className="py-2 px-4 ">
-        {participant.penalty.hms} ({participant.penalty.minutes} min)
-      </td>
-      <td className="py-2 px-4 ">{participant.rank}</td>
+      <td className="py-2 px-4 ">{row.solveCnt}</td>
+      <td className="py-2 px-4 ">{row.totalPenalty} min</td>
+
       <td className="py-2 px-4">
         <div className="flex flex-wrap items-center gap-2">
-          {participant.problems.map((problem, index) => (
-            <div
-              key={index}
-              className={`rounded-lg p-2  ${
-                problem.firstSolver
-                  ? "bg-blue-700 text-white"
-                  : "bg-blue-200 text-blue-900"
-              }`}
-            >
-              <span className="block mb-1">{problem.time}</span>
-              <b>{problem.points}</b>
-              {problem.firstSolver && <span className="text-sm">(-1)</span>}
+          {row.cells.map((cell, index) => (
+            <div key={index} className="">
+              {cell.isSolved && (
+                <div className="flex flex-col items-center justify-center w-20 h-12 bg-green-300 ">
+                  <span>
+                    {new Date(cell.solveAt).toISOString().slice(11, 19)}
+                  </span>
+                  <span>(-{cell.waCnt})</span>
+                </div>
+              )}
+              {!cell.isSolved && cell.waCnt > 0 && (
+                <div className="flex items-center justify-center w-20 h-12 bg-red-300">
+                  <span className="text-w">(-{cell.waCnt})</span>
+                </div>
+              )}
+              {!cell.isSolved && cell.waCnt === 0 && (
+                <div className="flex items-center justify-center w-20 h-12 bg-slate-50">
+                  <span className="text-w">-</span>
+                </div>
+              )}
             </div>
           ))}
         </div>

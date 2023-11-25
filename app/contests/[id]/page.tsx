@@ -83,7 +83,7 @@ export default function ContestPage({ params: { id } }: Props) {
             />
           )}
           {currPage == 2 && <Submissions contestId={contest.id} />}
-          {currPage == 3 && <StandingPage />}
+          {currPage == 3 && <StandingPage contestId={contest.id} />}
           {currPage == 4 && (
             <SingleProblem
               problemID={contest.problems[problemNo].id}

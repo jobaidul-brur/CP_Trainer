@@ -1,85 +1,62 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import StandingRow from "./singRow";
+interface Props {
+  contestId: string;
+}
 
-const StandingPage = () => {
-  // Example data for a participant
-  const participant = {
-    rank: 2,
-    username: "sayeef_1903006",
-    displayName: "Sayeef",
-    solved: 2500,
-    penalty: {
-      minutes: 191,
-      hms: "3:11:05",
-    },
-    problems: [
-      { time: "0:04:19", points: 100, firstSolver: true },
-      { time: "0:02:45", points: 200 },
-      { time: "0:18:34", points: 400 },
-      { time: "0:15:08", points: 500 },
-      { time: "0:59:10", points: 600 },
-      { time: "0:56:09", points: 700 },
-    ],
-  };
+interface Submission {
+  id: string;
+  remoteRunId: string;
+  problemId: string;
+  userId: string;
+  contestId: string;
+  verdict: string;
+  language: string;
+  createdAt: string;
+  sourceCode: string;
+  time: number;
+  memory: number;
+}
+interface Cell {
+  isSolved: boolean;
+  problemId: string;
+  solveAt: Date;
+  waCnt: number;
+}
+interface Row {
+  userId: string;
+  userName: string;
+  solveCnt: number;
+  totalPenalty: number;
+  cells: Cell[];
+}
 
-  const participants = [
-    {
-      rank: 1,
-      username: "sayeef_1903006",
-      displayName: "Sayeef",
-      solved: 2500,
-      penalty: {
-        minutes: 191,
-        hms: "3:11:05",
-      },
-      problems: [
-        { time: "0:04:19", points: 100, firstSolver: true },
-        { time: "0:02:45", points: 200 },
-        { time: "0:18:34", points: 400 },
-        { time: "0:15:08", points: 500 },
-        { time: "0:59:10", points: 600 },
-        { time: "0:56:09", points: 700 },
-      ],
-    },
-    {
-      rank: 2,
-      username: "sayeef_1903006",
-      displayName: "Sayeef",
-      solved: 2500,
-      penalty: {
-        minutes: 191,
-        hms: "3:11:05",
-      },
-      problems: [
-        { time: "0:04:19", points: 100, firstSolver: true },
-        { time: "0:02:45", points: 200 },
-        { time: "0:18:34", points: 400 },
-        { time: "0:15:08", points: 500 },
-        { time: "0:59:10", points: 600 },
-        { time: "0:56:09", points: 700 },
-      ],
-    },
-    {
-      rank: 3,
-      username: "sayeef_1903006",
-      displayName: "Sayeef",
-      solved: 2500,
-      penalty: {
-        minutes: 191,
-        hms: "3:11:05",
-      },
-      problems: [
-        { time: "0:04:19", points: 100, firstSolver: true },
-        { time: "0:02:45", points: 200 },
-        { time: "0:18:34", points: 400 },
-        { time: "0:15:08", points: 500 },
-        { time: "0:59:10", points: 600 },
-        { time: "0:56:09", points: 700 },
-      ],
-    },
-  ];
+const StandingPage = ({ contestId }: Props) => {
+  const [rows, setRows] = React.useState<Row[]>([]);
 
-  const problems = [1, 2, 3, 4, 5, 6];
+  useEffect(() => {
+    const fetchSubmissions = async () => {
+      const res = await fetch(
+        `${process.env.BASE_URL}/api/contests/${contestId}`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            rank: "rank",
+          }),
+          cache: "no-store",
+          credentials: "include",
+        }
+      );
+      const data: Row[] = await res.json();
+      console.log(data);
+      setRows(data);
+    };
+    fetchSubmissions();
+  }, []);
+  if (!rows) {
+    return <div>loading...</div>;
+  }
 
   return (
     <div>
@@ -88,16 +65,15 @@ const StandingPage = () => {
           <tr>
             <th>rank</th>
             <th>username</th>
-            <th>score</th>
-            <th>penalty</th>
             <th>solved</th>
+            <th>penalty</th>
             <th className=" text-center ">Problems</th>
           </tr>
         </thead>
 
         <tbody>
-          {participants.map((participant, index) => (
-            <StandingRow key={index} participant={participant} />
+          {rows.map((row, index) => (
+            <StandingRow key={index} row={row} rank={index + 1} />
           ))}
         </tbody>
       </table>
