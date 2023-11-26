@@ -75,7 +75,7 @@ const Submissions = () => {
 
               <td className="px-4 py-2 hover:text-slate-400">
                 <a onClick={() => handleModal(submission.id)} className="">
-                  {submission.verdict}
+                  {submission.verdict == "OK" ? "Accepted" : submission.verdict}
                 </a>
               </td>
               <td className="px-4 py-2">{submission.time}</td>

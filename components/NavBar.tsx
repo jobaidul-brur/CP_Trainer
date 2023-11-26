@@ -24,8 +24,12 @@ export const navLinks = [
     title: "Submissions",
   },
   {
-    id: "/dashboard",
-    title: "dashboard",
+    id: "/users",
+    title: "Users",
+  },
+  {
+    id: "/createContest",
+    title: "Create Contest",
   },
 ];
 
@@ -129,15 +133,33 @@ const AuthStatus = () => {
       </Link>
     );
   return (
-    <details className="dropdown dropdown-left bg-none text-black">
-      <summary className="cursor-pointer outline-none">
-        <div className="avatar">
-          <div className="h-8 text-red-400">
-            <p>{user.userName}</p>
-          </div>
-        </div>
-      </summary>
-      <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+    // <details className="dropdown dropdown-left bg-none text-black">
+    //   <summary className="cursor-pointer outline-none">
+    //     <div className="">
+    //       <div className="h-8 text-red-400">
+    //         <p>{user.userName}</p>
+    //       </div>
+    //     </div>
+    //   </summary>
+    //   <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+    //     <li>
+    //       <Link href={"/profile"}>{user.userName}</Link>
+    //     </li>
+    //     <li>
+    //       <span onClick={handleLogout} className="nav-link">
+    //         Logout
+    //       </span>
+    //     </li>
+    //   </ul>
+    // </details>
+    <div className="dropdown dropdown-hover">
+      <label tabIndex={0} className="btn btn-ghost m-1">
+        {user.userName}
+      </label>
+      <ul
+        tabIndex={0}
+        className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+      >
         <li>
           <Link href={"/profile"}>{user.userName}</Link>
         </li>
@@ -147,6 +169,6 @@ const AuthStatus = () => {
           </span>
         </li>
       </ul>
-    </details>
+    </div>
   );
 };

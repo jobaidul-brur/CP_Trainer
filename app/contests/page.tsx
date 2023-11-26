@@ -47,7 +47,7 @@ const Contests = async () => {
                 <Link href={"contests/" + contest.id}>{contest.name}</Link>
               </td>
               <td className="px-4 py-2">
-                {new Date(contest.startTime).toLocaleDateString()}
+                {new Date(contest.startTime).toLocaleString()}
               </td>
               <td className="px-4 py-2">{contest.duration}</td>
               <td className="px-4 py-2">{contest.authorName}</td>

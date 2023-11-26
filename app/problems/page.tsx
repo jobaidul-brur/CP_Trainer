@@ -23,7 +23,7 @@ const Problems = async () => {
         <thead className="bg-gray-100">
           <tr className="text-gray-700 text-left">
             <th className="px-4 py-2"></th>
-            <th className="px-4 py-2">Judge</th>
+            <th className="px-4 py-2">Problem Id</th>
             <th className="px-4 py-2">Problem Title</th>
           </tr>
         </thead>
@@ -37,7 +37,7 @@ const Problems = async () => {
               key={problem.id}
             >
               <td className="px-4 py-2">{index + 1}</td>
-              <td className="px-4 py-2">{"code forces"}</td>
+              <td className="px-4 py-2">{`${problem.contestId}${problem.index}`}</td>
               <td className="px-4 py-2">
                 <Link href={"problems/" + problem.id}>{problem.name}</Link>
               </td>
