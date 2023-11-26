@@ -53,12 +53,20 @@ export default function Statusbar({
       <div className="flex">
         <div className="w-1/3 text-left" id="info-elapsed"></div>
         <div className="w-1/3 text-center">
-          {new Date(contestStartTime).getTime() + duration * 60 * 1000 >
-          new Date().getTime() ? (
+          {new Date().getTime() < new Date(contestStartTime).getTime() && (
             <span id="info-running" className="text-green-500">
-              {new Date(elapsedSeconds * 1000).toISOString().slice(11, 19)}
+              Contest is not started yet
             </span>
-          ) : (
+          )}
+          {new Date(contestStartTime).getTime() <= new Date().getTime() &&
+            new Date().getTime() <
+              new Date(contestStartTime).getTime() + duration * 60 * 1000 && (
+              <span id="info-running" className="text-green-500">
+                {new Date(elapsedSeconds * 1000).toISOString().slice(11, 19)}
+              </span>
+            )}
+          {new Date(contestStartTime).getTime() + duration * 60 * 1000 <
+            new Date().getTime() && (
             <span id="info-running" className="text-green-500">
               Ended
             </span>

@@ -10,7 +10,7 @@ export default function ContestNavbar({ handleClickOfNavigation }: Props) {
       <div className=" flex flex-row justify-left  items-center font-bold  ">
         <span
           onClick={() => handleClickOfNavigation(1)}
-          className=" mr-3 pt-3 pb-3 pr-4 pl-4  bg-gray-200 rounded-lg hover:bg-blue-300 hover:underline hover:cursor-pointer "
+          className="mr-3 pt-3 pb-3 pr-4 pl-4  bg-gray-200 rounded-lg hover:bg-blue-300 hover:underline hover:cursor-pointer "
         >
           Problems
         </span>

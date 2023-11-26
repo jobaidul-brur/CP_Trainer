@@ -50,7 +50,7 @@ const ContestForm = () => {
       body: JSON.stringify({
         name: contestName,
         authorId: user?.id,
-        startTime: `${startDate}T${startTime}:00.000Z`,
+        startTime: new Date(`${startDate}T${startTime}`).toISOString(),
         duration: duration,
         participantIds: selectedUsers.map((user) => user.id),
         totalProblems: totalProblems,

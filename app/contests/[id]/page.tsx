@@ -74,23 +74,29 @@ export default function ContestPage({ params: { id } }: Props) {
             contestStartTime={contest.startTime}
             duration={contest.duration}
           />
-          <ContestNavbar handleClickOfNavigation={handleClickOfNavigation} />
-          <hr className="my-2 w-full " />
-          {currPage === 1 && (
-            <Problems
-              handleClickOfProblem={handleClickOfProblem}
-              contest={contest}
-            />
+          {new Date().getTime() >= new Date(contest.startTime).getTime() && (
+            <div>
+              <ContestNavbar
+                handleClickOfNavigation={handleClickOfNavigation}
+              />
+              <hr className="my-2 w-full " />
+              {currPage === 1 && (
+                <Problems
+                  handleClickOfProblem={handleClickOfProblem}
+                  contest={contest}
+                />
+              )}
+              {currPage == 2 && <Submissions contestId={contest.id} />}
+              {currPage == 3 && <StandingPage contestId={contest.id} />}
+              {currPage == 4 && (
+                <SingleProblem
+                  problemID={contest.problems[problemNo].id}
+                  constID={contest.id}
+                  indexInContest={String(problemNo + 1)}
+                />
+              )}{" "}
+            </div>
           )}
-          {currPage == 2 && <Submissions contestId={contest.id} />}
-          {currPage == 3 && <StandingPage contestId={contest.id} />}
-          {currPage == 4 && (
-            <SingleProblem
-              problemID={contest.problems[problemNo].id}
-              constID={contest.id}
-              indexInContest={String(problemNo + 1)}
-            />
-          )}{" "}
         </div>
       )}
     </div>

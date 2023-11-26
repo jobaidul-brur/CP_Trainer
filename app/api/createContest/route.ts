@@ -69,7 +69,9 @@ export async function POST(request: NextRequest) {
     }
   }
   console.log(`Candidates: ${candidates.size}`);
-  const problemIds = Array.from(candidates).slice(0, totalProblems);
+  const problemIds = Array.from(candidates)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, totalProblems);
   console.log(problemIds);
   const contest = await prisma.contest.create({
     data: {
