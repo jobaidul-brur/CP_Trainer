@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
   }
 
   // sleep for 5 seconds
-  await new Promise((r) => setTimeout(r, 5000));
+  await new Promise((r) => setTimeout(r, 10000));
 
   const res = await fetch(
     "https://codeforces.com/api/user.status?handle=marjia321&from=1&count=10"

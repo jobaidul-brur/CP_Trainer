@@ -3,7 +3,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="container mx-auto px-4 py-8" id="index-intro">
         <h1 className="text-4xl font-bold mb-4" id="index-title">
-          Welcome to ACM Trainer
+          Welcome to CP Trainer
         </h1>
         <div className="flex flex-wrap">
           <div className="w-full md:w-8/12">
